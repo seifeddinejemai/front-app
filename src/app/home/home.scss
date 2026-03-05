@@ -1,0 +1,70 @@
+/* conteneur principal avec image en arrière plan */
+.home-container{
+  height: 100vh;
+
+  /* image de fond */
+  background-image: url("/assets/img/home.jpg");
+
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* contenu centré */
+.content{
+  text-align: center;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 40px;
+  border-radius: 10px;
+}
+
+/* style des boutons */
+.btn{
+  margin: 10px;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* bouton login */
+.login-btn{
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* bouton a propos */
+.about-btn{
+  background-color: #2196F3;
+  color: white;
+}
+
+/* fond sombre derrière la fenetre */
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* contenu de la fenetre flottante */
+.modal-content{
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  text-align: center;
+}

@@ -1,0 +1,40 @@
+<!-- Conteneur principal avec image de fond -->
+<div class="home-container">
+
+  <div class="content">
+    
+    <!-- Titre -->
+    <h1>Bienvenue dans bibliothèque en ligne</h1>
+
+    <!-- Bouton login -->
+    <button class="btn login-btn" (click)="goToLogin()">
+      Se connecter
+    </button>
+
+    <!-- Bouton à propos -->
+    <button class="btn about-btn" (click)="openAbout()">
+      À propos
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- Fenêtre flottante -->
+<div class="modal" *ngIf="showAbout">
+
+  <div class="modal-content">
+
+    <h2>À propos</h2>
+
+    <p>
+      Cette application est une bibliotheque en ligne
+    </p>
+
+    <!-- bouton fermer -->
+    <button (click)="closeAbout()">Fermer</button>
+
+  </div>
+
+</div>
