@@ -1,0 +1,34 @@
+<div id="search-bar-container">
+	<app-search-bar
+		(searchButtonClicked)="searchLivres()"
+		[search]="search"
+		(searchChange)="search = $event"
+	/>
+</div>
+Search: {{ search }}<br />
+Clicked Count: {{ count }}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titre</th>
+      <th scope="col">Auteur</th>
+      <th scope="col">Pays</th>
+      <th scope="col">Annee</th>
+    </tr>
+  </thead>
+  <tbody>
+
+      @for(item of this.books; track item.id){
+
+     <tr>
+    <td>{{item.id}}</td>
+      <td>{{item.titre}}</td>
+    <td>{{item.auteur}}</td>
+    <td>{{item.pays}}</td>
+    <td>{{item.annee}}</td>
+  </tr>
+  }
+  </tbody>
+</table>

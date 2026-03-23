@@ -1,0 +1,15 @@
+<label for="username">username: </label>
+<input id="username" type="text" [formControl]="username" />
+
+<label for="pwd">Mot de passe: </label>
+<input id="pwd" type="password" [formControl]="pwd" />
+
+@if(this.error){
+
+    <div class="alert alert-danger" role="alert">
+        {{this.error.error?.message}}
+    </div>
+}
+
+
+<button type="button" (click)="login()">login</button>

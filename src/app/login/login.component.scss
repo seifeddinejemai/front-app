@@ -1,0 +1,17 @@
+/*
+Source - https://stackoverflow.com/a/46995565
+Posted by Bram G, modified by community. See post 'Timeline' for change history
+Retrieved 2026-03-23, License - CC BY-SA 3.0
+*/
+
+    .alert {
+        animation: autoHide 0s ease-in 4s forwards;
+    }
+
+    @keyframes autoHide {
+        to {
+            width:0;
+            height:0;
+            overflow:hidden;
+        }
+    }

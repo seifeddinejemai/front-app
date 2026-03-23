@@ -1,5 +1,5 @@
 <div id="search-bar">
-	<input placeholder="Search..." [ngModel]="search" (ngModelChange)="updateSearch($event)"/>
-    <button (click)="searchClick()"><img src="img/loupe.jpg" /></button>
-
+	<input placeholder="Search..." [ngModel]="search()" (ngModelChange)="updateSearch($event)"/>
+    <button (click)="searchClick()"></button>
+<!-- <img src="../../assets/img/loupe.jpg" /> -->
 </div>
