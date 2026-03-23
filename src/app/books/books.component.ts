@@ -3,6 +3,7 @@ import { SearchBar } from "../search-bar/search-bar";
 import { BookService } from '../../services/book.service';
 import { Book } from '../../models/book';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-books',
@@ -11,27 +12,28 @@ import { CommonModule } from '@angular/common';
   templateUrl: './books.component.html',
   styleUrl: './books.component.scss',
 })
-export class BooksComponent implements OnInit {
+export class BooksComponent implements OnInit, OnDestroy {
 
   books: Book[] = []
+  books$!: Observable<Book[]>;
   count: number = 0;
   search: string = '';
   constructor(
     private bookService: BookService
   ) { }
-  // ngOnDestroy(): void {
-  // }
-  ngOnInit(): void {
-    this.bookService.getallLivres()
-      .subscribe((livres) => {
-        this.books = livres as Book[]
-      })
+  ngOnDestroy(): void {
   }
+ngOnInit(): void {
+      this.books$ = this.bookService.getallLivres();
 
+}
 
 
   searchLivres() {
   }
+
+
+  
 
 
 

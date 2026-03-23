@@ -11,9 +11,10 @@ export class BookService {
   increaseCount(count: number= 0) {
 		count++;
 	}
-  getallLivres(){
-    return this.http.get("http://127.0.0.1:5000/livres",{})
-  }
+getallLivres(){
+  return this.http.get<Book[]>("http://127.0.0.1:5000/livres");
+
+}
   getOnelvre(id: number){
     return this.http.get(`http://127.0.0.1:5000/livres/${id}`,{})
   }

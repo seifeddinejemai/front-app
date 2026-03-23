@@ -20,15 +20,13 @@ Clicked Count: {{ count }}
   </thead>
   <tbody>
 
-      @for(item of this.books; track item.id){
-
-     <tr>
-    <td>{{item.id}}</td>
-      <td>{{item.titre}}</td>
-    <td>{{item.auteur}}</td>
-    <td>{{item.pays}}</td>
-    <td>{{item.annee}}</td>
+<tbody>
+  <tr *ngFor="let item of books$ | async">
+    <td>{{ item.id }}</td>
+    <td>{{ item.titre }}</td>
+    <td>{{ item.auteur }}</td>
+    <td>{{ item.pays }}</td>
+    <td>{{ item.annee }}</td>
   </tr>
-  }
-  </tbody>
+</tbody>
 </table>

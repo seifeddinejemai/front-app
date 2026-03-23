@@ -12,7 +12,7 @@ export class SearchBar {
 
   
     search = model<string>('');
-    searchButtonClicked = output<void>({alias: 'submit'});
+    searchButtonClicked = output<void>();
   
   searchClick() {
 		this.searchButtonClicked.emit() ;
