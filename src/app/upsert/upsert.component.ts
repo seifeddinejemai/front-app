@@ -27,7 +27,7 @@ export class BookUpsertComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private bookService: BookService,
-      private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef
 
   ) {}
 

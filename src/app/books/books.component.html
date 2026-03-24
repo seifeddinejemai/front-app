@@ -1,10 +1,19 @@
 <div id="search-bar-container">
-  <app-search-bar (searchButtonClicked)="filterLivres()" [search]="search" (searchChange)="search = $event" />
+  <app-search-bar (searchButtonClicked)="true" [search]="search_text" (searchChange)="searchChange($event)" />
+<select [(ngModel)]="selectedFilter" (change)="selectfilter()" class="form-select">
+  <option selected hidden value="">Select Book Filter</option>
+
+  @for (item of filter_keys; track $index) {
+    <option [value]="item">{{ item }}</option>
+  }
+</select>
 </div>
 <!-- Search: {{ search }}<br />
 Clicked Count: {{ count }} -->
-<div class="text-center">
+<div class="text-center mt-5">
   <button type="button" class="btn btn-primary" routerLink="/upsert">Ajouter</button>
+  <button type="button" (click)="reset()" class="btn btn-Light">Réinitialiser</button>
+  <button type="button" (click)="logout()" class="btn btn-danger dec">Déconnexion</button>
 </div>
 
 <table class="table mt-5">

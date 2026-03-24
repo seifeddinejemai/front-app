@@ -1,15 +1,15 @@
-<label for="username">username: </label>
-<input id="username" type="text" [formControl]="username" />
+<div class="login-container">
 
-<label for="pwd">Mot de passe: </label>
-<input id="pwd" type="password" [formControl]="pwd" />
+  <label for="username">Username: </label>
+  <input id="username" type="text" [formControl]="username" />
 
-<!-- @if(this.error?.error){
+  <label for="pwd">Mot de passe: </label>
+  <input id="pwd" type="password" [formControl]="pwd" />
 
-    <div class="alert alert-danger" role="alert">
-        {{this.error?.error?.error?.message}}
-    </div>
-} -->
+  <!-- alerte erreur -->
+  <div *ngIf="error?.error" class="alert alert-danger">
+    {{ error?.error?.error }}
+  </div>
+  <button type="button" (click)="login()">Login</button>
 
-
-<button type="button" (click)="login()">login</button>
+</div>
