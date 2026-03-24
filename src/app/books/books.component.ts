@@ -4,17 +4,18 @@ import { BookService } from '../../services/book.service';
 import { Book } from '../../models/book';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-books',
-  imports: [SearchBar, CommonModule],
+  imports: [SearchBar, CommonModule, RouterLink],
   standalone: true,
   templateUrl: './books.component.html',
   styleUrl: './books.component.scss',
 })
 export class BooksComponent implements OnInit, OnDestroy {
 
-  books: Book[] = []
+
   books$!: Observable<Book[]>;
   count: number = 0;
   search: string = '';
@@ -23,17 +24,20 @@ export class BooksComponent implements OnInit, OnDestroy {
   ) { }
   ngOnDestroy(): void {
   }
-ngOnInit(): void {
-      this.books$ = this.bookService.getallLivres();
+  ngOnInit(): void {
+    this.books$ = this.bookService.getallLivres();
 
-}
-
-
-  searchLivres() {
   }
 
 
-  
+  filterLivres() {
+    // this.books$ = this.bookService.filterLivres();
+  }
+
+
+  deleteLivre() {
+
+  }
 
 
 

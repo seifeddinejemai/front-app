@@ -1,13 +1,13 @@
 export class Book {
-    id: number;
+    id?: number;
     titre: string;
     auteur: string;
     pays: string;
-    annee: number;
+    annee: number | undefined;
     
 
-    constructor(id: number, titre: string, auteur: string, pays: string, annee:number,) {
-    this.id = id;
+    constructor(titre: string, auteur: string, pays: string, annee:number|undefined,) {
+    // this.id = id;
     this.titre = titre;
     this.auteur = auteur;
     this.pays= pays;

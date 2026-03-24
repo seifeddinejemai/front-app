@@ -1,14 +1,13 @@
 <div id="search-bar-container">
-	<app-search-bar
-		(searchButtonClicked)="searchLivres()"
-		[search]="search"
-		(searchChange)="search = $event"
-	/>
+  <app-search-bar (searchButtonClicked)="filterLivres()" [search]="search" (searchChange)="search = $event" />
 </div>
-Search: {{ search }}<br />
-Clicked Count: {{ count }}
+<!-- Search: {{ search }}<br />
+Clicked Count: {{ count }} -->
+<div class="text-center">
+  <button type="button" class="btn btn-primary" routerLink="/upsert">Ajouter</button>
+</div>
 
-<table class="table">
+<table class="table mt-5">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -16,17 +15,30 @@ Clicked Count: {{ count }}
       <th scope="col">Auteur</th>
       <th scope="col">Pays</th>
       <th scope="col">Annee</th>
+      <th scope="col" colspan="2">Operation</th>
+
     </tr>
   </thead>
   <tbody>
 
-<tbody>
-  <tr *ngFor="let item of books$ | async">
-    <td>{{ item.id }}</td>
-    <td>{{ item.titre }}</td>
-    <td>{{ item.auteur }}</td>
-    <td>{{ item.pays }}</td>
-    <td>{{ item.annee }}</td>
-  </tr>
-</tbody>
+  <tbody>
+    <tr *ngFor="let item of books$ | async">
+      <td>{{ item.id }}</td>
+      <td>{{ item.titre }}</td>
+      <td>{{ item.auteur }}</td>
+      <td>{{ item.pays }}</td>
+      <td>{{ item.annee }}</td>
+      <td>
+        <div class="text-center">
+          <button type="button" class="btn btn-secondary" routerLink="/upsert"
+            [queryParams]="{id:item.id}">Modifier</button>
+        </div>
+      </td>
+      <td>
+        <div class="text-center">
+          <button type="button" (click)="deleteLivre()" class="btn btn-light">Supprimer</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>

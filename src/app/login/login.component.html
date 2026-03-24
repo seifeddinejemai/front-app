@@ -4,12 +4,12 @@
 <label for="pwd">Mot de passe: </label>
 <input id="pwd" type="password" [formControl]="pwd" />
 
-@if(this.error){
+<!-- @if(this.error?.error){
 
     <div class="alert alert-danger" role="alert">
-        {{this.error.error?.message}}
+        {{this.error?.error?.error?.message}}
     </div>
-}
+} -->
 
 
 <button type="button" (click)="login()">login</button>
