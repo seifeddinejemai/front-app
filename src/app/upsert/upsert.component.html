@@ -4,16 +4,19 @@
   <form (ngSubmit)="onSubmit(bookForm)" #bookForm="ngForm">
 
     <!-- ID (souvent caché en mode ajout) -->
-    <div class="form-group" *ngIf="isEditMode">
-      <label for="id">ID</label>
-      <input
-        type="text"
-        id="id"
-        name="id"
-        [(ngModel)]="this.book.id"
-        readonly
-      />
-    </div>
+     @if(isEditMode){
+
+       <div class="form-group">
+         <label for="id">ID</label>
+         <input
+         type="text"
+         id="id"
+         name="id"
+         [(ngModel)]="this.book.id"
+         readonly
+         />
+        </div>
+      }
 
     <!-- Titre -->
     <div class="form-group">
@@ -67,7 +70,7 @@
         {{ isEditMode ? 'Mettre à jour' : 'Ajouter' }}
       </button>
 
-      <button type="button" class="cancel" (click)="onCancel()">
+      <button type="reset" class="cancel" (click)="onCancel()">
         Annuler
       </button>
     </div>

@@ -3,7 +3,7 @@ import { SearchBar } from "../search-bar/search-bar";
 import { BookService } from '../../services/book.service';
 import { Book } from '../../models/book';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of, throwError } from 'rxjs';
 import { RouterLink } from "@angular/router";
 
 @Component({
@@ -25,8 +25,7 @@ export class BooksComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
   ngOnInit(): void {
-    this.books$ = this.bookService.getallLivres();
-
+    this.getAllBooks()
   }
 
 
@@ -34,10 +33,19 @@ export class BooksComponent implements OnInit, OnDestroy {
     // this.books$ = this.bookService.filterLivres();
   }
 
-
-  deleteLivre() {
+  getAllBooks() {
+    this.books$ = this.bookService.getallLivres();
 
   }
+
+deleteLivre(id: number) {
+  this.bookService.deleteLivre(id).subscribe({
+    next: () => {
+      this.bookService.getallLivres().subscribe(books => this.books$ = of(books));
+    },
+    error: err => console.error(err)
+  });
+}
 
 
 
