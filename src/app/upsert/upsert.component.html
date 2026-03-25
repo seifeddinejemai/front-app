@@ -3,78 +3,60 @@
 
   <form (ngSubmit)="onSubmit(bookForm)" #bookForm="ngForm">
 
-    <!-- ID (souvent caché en mode ajout) -->
-     @if(isEditMode){
+    <!-- ID - visible seulement en mode modification -->
+    @if (isEditMode) {
+    <div class="form-group">
+      <label for="id">ID</label>
+      <input type="text" id="id" name="id" class="form-control" [(ngModel)]="book.id" readonly disabled />
+    </div>
+    }
 
-       <div class="form-group">
-         <label for="id">ID</label>
-         <input
-         type="text"
-         id="id"
-         name="id"
-         [(ngModel)]="this.book.id"
-         readonly
-         />
-        </div>
+    <!-- Titre - champ obligatoire -->
+    <div class="form-group">
+      <label for="titre">Titre *</label>
+      <input type="text" id="titre" name="titre" class="form-control" [(ngModel)]="book.titre" required
+        #titre="ngModel" />
+      @if (titre.invalid && titre.touched) {
+      <div class="error">
+        Le titre est obligatoire
+      </div>
       }
-
-    <!-- Titre -->
-    <div class="form-group">
-      <label for="titre">Titre</label>
-      <input
-        type="text"
-        id="titre"
-        name="titre"
-        [(ngModel)]="this.book.titre"
-        required
-      />
     </div>
 
-    <!-- Auteur -->
+    <!-- Auteur - champ obligatoire -->
     <div class="form-group">
-      <label for="auteur">Auteur</label>
-      <input
-        type="text"
-        id="auteur"
-        name="auteur"
-        [(ngModel)]="this.book.auteur"
-        required
-      />
+      <label for="auteur">Auteur *</label>
+      <input type="text" id="auteur" name="auteur" class="form-control" [(ngModel)]="book.auteur" required
+        #auteur="ngModel" />
+      @if (auteur.invalid && auteur.touched) {
+      <div class="error">
+        L'auteur est obligatoire
+      </div>
+      }
     </div>
 
-    <!-- Pays -->
+    <!-- Pays - champ optionnel -->
     <div class="form-group">
       <label for="pays">Pays</label>
-      <input
-        type="text"
-        id="pays"
-        name="pays"
-        [(ngModel)]="this.book.pays"
-      />
+      <input type="text" id="pays" name="pays" class="form-control" [(ngModel)]="book.pays" />
     </div>
 
-    <!-- Année -->
+    <!-- Année - champ optionnel -->
     <div class="form-group">
       <label for="annee">Année</label>
-      <input
-        type="number"
-        id="annee"
-        name="annee"
-        [(ngModel)]="this.book.annee"
-      />
+      <input type="number" id="annee" name="annee" class="form-control" [(ngModel)]="book.annee" />
     </div>
 
-    <!-- Boutons -->
+    <!-- Boutons d'action -->
     <div class="actions">
-      <button type="submit" >
+      <button type="submit" class="btn-submit" [disabled]="bookForm.invalid">
         {{ isEditMode ? 'Mettre à jour' : 'Ajouter' }}
       </button>
 
-      <button type="reset" class="cancel" (click)="onCancel()">
+      <button type="button" class="btn-cancel" (click)="onCancel()">
         Annuler
       </button>
     </div>
-    <!-- [disabled]="this.bookForm?.invalid" -->
 
   </form>
 </div>

@@ -1,5 +1,14 @@
 <div id="search-bar">
-	<input placeholder="Search..." [ngModel]="search()" (ngModelChange)="updateSearch($event)"/>
-    <button (click)="searchClick()"></button>
-<!-- <img src="../../assets/img/loupe.jpg" /> -->
+  <!-- Champ de recherche -->
+  <!-- [ngModel]="search()" : liaison de données (parent vers enfant) -->
+  <!-- (ngModelChange)="updateSearch($event)" : événement quand le texte change (enfant vers parent) -->
+  <input 
+    placeholder="Search..." 
+    [ngModel]="search()" 
+    (ngModelChange)="updateSearch($event)"
+  />
+  
+  <!-- Bouton de recherche -->
+  <!-- (click)="searchClick()" : appelle la méthode searchClick() -->
+  <button (click)="searchClick()"></button>
 </div>

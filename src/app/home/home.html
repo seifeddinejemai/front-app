@@ -3,15 +3,17 @@
 
   <div class="content">
     
-    <!-- Titre -->
+    <!-- Titre principal de la page -->
     <h1>Bienvenue dans bibliothèque en ligne</h1>
 
-    <!-- Bouton login -->
+    <!-- Bouton de connexion -->
+    <!-- (click)="goToLogin()" : appel la méthode goToLogin() au clic -->
     <button class="btn login-btn" (click)="goToLogin()">
       Se connecter
     </button>
 
-    <!-- Bouton à propos -->
+    <!-- Bouton "À propos" -->
+    <!-- (click)="openAbout()" : affiche la fenêtre modale -->
     <button class="btn about-btn" (click)="openAbout()">
       À propos
     </button>
@@ -20,8 +22,8 @@
 
 </div>
 
-
-<!-- Fenêtre flottante -->
+<!-- Fenêtre modale (popup) -->
+<!-- *ngIf="showAbout" : n'affiche la fenêtre que si showAbout est true -->
 <div class="modal" *ngIf="showAbout">
 
   <div class="modal-content">
@@ -32,7 +34,8 @@
       Cette application est une bibliotheque en ligne
     </p>
 
-    <!-- bouton fermer -->
+    <!-- Bouton pour fermer la fenêtre -->
+    <!-- (click)="closeAbout()" : ferme la fenêtre modale -->
     <button (click)="closeAbout()">Fermer</button>
 
   </div>

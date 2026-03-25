@@ -12,69 +12,79 @@ import { catchError, Observable, throwError } from 'rxjs';
   templateUrl: './upsert.component.html',
   styleUrls: ['./upsert.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule] // <-- pour ngIf, ngFor et ngModel
+  imports: [CommonModule, FormsModule] // importe les modules pour les formulaires
 })
 export class BookUpsertComponent implements OnInit {
 
-  book =new Book ('','','',undefined);
-   book$!: Observable<Book>;
+  // Crée un nouveau livre vide avec des valeurs par défaut
+  book = new Book ('','','',undefined);
+  book$!: Observable<Book>;
 
-  isEditMode = false;
+  isEditMode = false;  // true = mode modification, false = mode ajout
+  
+  // Récupère une référence vers le formulaire HTML pour pouvoir vérifier son état
   @ViewChild('bookForm') bookForm!: NgForm;
 
-
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private bookService: BookService,
-    private cd: ChangeDetectorRef
-
+    private route: ActivatedRoute,      // pour lire les paramètres de l'URL (ex: ?id=5)
+    private router: Router,            // pour naviguer entre les pages
+    private bookService: BookService,  // pour appeler l'API
+    private cd: ChangeDetectorRef      // pour forcer la mise à jour de l'affichage
   ) {}
 
-ngOnInit(): void {
-  const idParam = this.route.snapshot.queryParamMap.get('id');
+  ngOnInit(): void {
+    // Récupère le paramètre 'id' dans l'URL (ex: /upsert?id=5)
+    const idParam = this.route.snapshot.queryParamMap.get('id');
 
-  if (idParam) {
-    this.isEditMode = true;
-    const id = +idParam;
+    if (idParam) {
+      // Si un id est présent, on est en mode édition
+      this.isEditMode = true;
+      const id = +idParam;  // le + convertit la chaîne en nombre
 
-    this.bookService.getOneLivre(id).subscribe({
-      next: (data) => {
-        console.log('Livre récupéré', data);
-        this.book = new Book(
-      data.titre,
-      data.auteur,
-      data.pays,
-      data.annee,
-      data.id 
-    );
-     this.cd.detectChanges(); 
-      },
-      error: (err) => console.error('Erreur chargement livre', err)
-    });
+      // Charge les données du livre à modifier
+      this.bookService.getOneLivre(id).subscribe({
+        next: (data) => {
+          console.log('Livre récupéré', data);
+          // Remplit le formulaire avec les données du livre
+          this.book = new Book(
+            data.titre,
+            data.auteur,
+            data.pays,
+            data.annee,
+            data.id 
+          );
+          this.cd.detectChanges(); // force l'affichage des nouvelles données
+        },
+        error: (err) => console.error('Erreur chargement livre', err)
+      });
+    }
   }
-}
 
   onSubmit(form: NgForm): void {
-    if (form.invalid) return; // sécurité côté TS
+    // Si le formulaire est invalide (champs obligatoires vides), on arrête
+    if (form.invalid) return;
 
     if (this.isEditMode) {
+      // Mode modification : on met à jour le livre existant
       this.bookService.updateLivre(this.book).subscribe({
-        next: () => this.goToBooks(),
+        next: () => this.goToBooks(),  // succès : retour à la liste
         error: (err: any) => console.error('Erreur mise à jour', err)
       });
     } else {
+      // Mode ajout : on crée un nouveau livre
       this.bookService.addLivre(this.book).subscribe({
-        next: () => this.goToBooks(),
+        next: () => this.goToBooks(),  // succès : retour à la liste
         error: (err: any) => console.error('Erreur ajout', err)
       });
     }
   }
 
   onCancel(): void {
+    // Annuler : retour à la liste des livres
     this.goToBooks();
   }
+  
   goToBooks(){
-    this.router.navigate(['/books'])
+    this.router.navigate(['/books'])  // navigation vers la page des livres
   }
 }

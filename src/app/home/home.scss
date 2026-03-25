@@ -1,70 +1,70 @@
 /* conteneur principal avec image en arrière plan */
 .home-container{
-  height: 100vh;
+  height: 100vh;  /* Hauteur = 100% de la hauteur de l'écran */
 
   /* image de fond */
   background-image: url("../../assets/img/home.jpg");
 
-  background-size: cover;
-  background-position: center;
+  background-size: cover;    /* L'image couvre tout l'espace */
+  background-position: center; /* L'image est centrée */
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex;              /* Active Flexbox */
+  justify-content: center;    /* Centre horizontalement */
+  align-items: center;        /* Centre verticalement */
 }
 
 /* contenu centré */
 .content{
-  text-align: center;
-  color: white;
-  background: rgba(0,0,0,0.5);
-  padding: 40px;
-  border-radius: 10px;
+  text-align: center;        /* Texte centré */
+  color: white;              /* Texte blanc */
+  background: rgba(0,0,0,0.5); /* Fond semi-transparent noir */
+  padding: 40px;              /* Espace intérieur */
+  border-radius: 10px;        /* Coins arrondis */
 }
 
 /* style des boutons */
 .btn{
-  margin: 10px;
-  padding: 12px 25px;
-  font-size: 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  margin: 10px;               /* Marge externe */
+  padding: 12px 25px;         /* Espace intérieur (haut/bas = 12px, gauche/droite = 25px) */
+  font-size: 16px;            /* Taille du texte */
+  border: none;               /* Pas de bordure */
+  border-radius: 6px;         /* Coins arrondis */
+  cursor: pointer;            /* Curseur main au survol */
 }
 
-/* bouton login */
+/* bouton login spécifique */
 .login-btn{
-  background-color: #4CAF50;
-  color: white;
+  background-color: #4CAF50;  /* Fond vert */
+  color: white;               /* Texte blanc */
 }
 
-/* bouton a propos */
+/* bouton à propos spécifique */
 .about-btn{
-  background-color: #2196F3;
-  color: white;
+  background-color: #2196F3;  /* Fond bleu */
+  color: white;               /* Texte blanc */
 }
 
-/* fond sombre derrière la fenetre */
+/* fond sombre derrière la fenêtre modale */
 .modal{
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: fixed;            /* Fixé par rapport à la fenêtre */
+  top: 0;                     /* Collé en haut */
+  left: 0;                    /* Collé à gauche */
 
-  width: 100%;
-  height: 100%;
+  width: 100%;                /* Pleine largeur */
+  height: 100%;               /* Pleine hauteur */
 
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.6); /* Fond semi-transparent noir */
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex;              /* Flexbox pour centrer le contenu */
+  justify-content: center;    /* Centre horizontalement */
+  align-items: center;        /* Centre verticalement */
 }
 
-/* contenu de la fenetre flottante */
+/* contenu de la fenêtre flottante */
 .modal-content{
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 400px;
-  text-align: center;
-}
+  background: white;          /* Fond blanc */
+  padding: 30px;              /* Espace intérieur */
+  border-radius: 10px;        /* Coins arrondis */
+  width: 400px;               /* Largeur fixe */
+  text-align: center;         /* Texte centré */
+} 

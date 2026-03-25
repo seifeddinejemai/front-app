@@ -1,54 +1,53 @@
-
 .login-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  background-color: #f9f9f9;
-  font-family: Arial, sans-serif;
+  max-width: 400px;              // Largeur maximale
+  margin: 50px auto;             // Centré avec marge haute de 50px
+  padding: 25px;                 // Espace intérieur
+  border-radius: 10px;           // Coins arrondis
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);  // Ombre légère
+  background-color: #f9f9f9;     // Fond gris clair
+  font-family: Arial, sans-serif; // Police
 
   label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+    display: block;              // Chaque label sur sa propre ligne
+    margin-bottom: 5px;          // Marge basse
+    font-weight: bold;           // Texte en gras
   }
 
   input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    width: 100%;                 // Pleine largeur
+    padding: 8px;                // Espace intérieur
+    margin-bottom: 15px;         // Marge basse
+    border-radius: 5px;          // Coins arrondis
+    border: 1px solid #ccc;      // Bordure grise
+    box-sizing: border-box;      // Inclut padding dans la largeur
   }
 
   button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
+    width: 100%;                 // Pleine largeur
+    padding: 10px;               // Espace intérieur
+    border: none;                // Pas de bordure
+    background-color: #007bff;   // Fond bleu
+    color: white;                // Texte blanc
+    font-weight: bold;           // Texte en gras
+    border-radius: 5px;          // Coins arrondis
+    cursor: pointer;             // Curseur main
+    transition: background 0.3s; // Animation douce pour le survol
   }
 
   button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3;   // Fond bleu plus foncé au survol
   }
 
   .alert {
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-  background-color: #dc3545;
-  color: white;
-  font-weight: bold;
-}
+    padding: 10px;               // Espace intérieur
+    margin-top: 10px;            // Marge haute
+    border-radius: 5px;          // Coins arrondis
+    background-color: #dc3545;   // Fond rouge
+    color: white;                // Texte blanc
+    font-weight: bold;           // Texte en gras
+  }
 
-  /* auto-hide après 4s */
+  /* auto-hide après 4s (non utilisé) */
   .alert.hide {
     opacity: 0;
   }

@@ -1,43 +1,78 @@
+<!-- Conteneur pour la barre de recherche -->
 <div id="search-bar-container">
-  <app-search-bar (searchButtonClicked)="true" [search]="search" (searchChange)="searchChange($event)" />
-</div>
-<!-- Search: {{ search }}<br />
-Clicked Count: {{ count }} -->
-<div class="text-center">
-  <button type="button" class="btn btn-primary" routerLink="/upsert">Ajouter</button>
-  <button type="button" (click)="reset()" class="btn btn-Light">Réinitialiser</button>
+  <!-- Composant de barre de recherche réutilisable -->
+  <!-- searchButtonClicked: événement quand on clique sur le bouton de recherche -->
+  <!-- [search]: liaison de données pour le texte de recherche (du parent vers l'enfant) -->
+  <!-- (searchChange): événement quand le texte change (de l'enfant vers le parent) -->
+  <app-search-bar 
+    (searchButtonClicked)="true" 
+    [search]="search" 
+    (searchChange)="searchChange($event)" 
+  />
 </div>
 
+<!-- Section des boutons d'action -->
+<div class="text-center">
+  <!-- Bouton pour ajouter un nouveau livre -->
+  <!-- routerLink="/upsert" : navigation vers la page d'ajout -->
+  <button type="button" class="btn btn-primary" routerLink="/upsert">
+    Ajouter
+  </button>
+  
+  <!-- Bouton pour réinitialiser la recherche -->
+  <!-- (click)="reset()" : appelle la méthode reset() quand on clique -->
+  <button type="button" (click)="reset()" class="btn btn-Light">
+    Réinitialiser
+  </button>
+</div>
+
+<!-- Tableau pour afficher la liste des livres -->
 <table class="table mt-5">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Titre</th>
-      <th scope="col">Auteur</th>
-      <th scope="col">Pays</th>
-      <th scope="col">Annee</th>
-      <th scope="col" colspan="2">Operation</th>
-
+      <!-- En-têtes du tableau -->
+      <th scope="col">#</th>           <!-- Colonne ID -->
+      <th scope="col">Titre</th>       <!-- Colonne Titre -->
+      <th scope="col">Auteur</th>      <!-- Colonne Auteur -->
+      <th scope="col">Pays</th>        <!-- Colonne Pays -->
+      <th scope="col">Annee</th>       <!-- Colonne Année -->
+      <th scope="col" colspan="2">Operation</th> <!-- Colonne Actions (sur 2 colonnes) -->
     </tr>
   </thead>
   <tbody>
-
-  <tbody>
+    <!-- *ngFor : boucle pour afficher chaque livre -->
+    <!-- books$ | async : s'abonne à l'Observable books$ et affiche les données -->
     <tr *ngFor="let item of books$ | async">
+      <!-- Affiche l'ID du livre -->
       <td>{{ item.id }}</td>
+      <!-- Affiche le titre du livre -->
       <td>{{ item.titre }}</td>
+      <!-- Affiche l'auteur du livre -->
       <td>{{ item.auteur }}</td>
+      <!-- Affiche le pays du livre -->
       <td>{{ item.pays }}</td>
+      <!-- Affiche l'année du livre -->
       <td>{{ item.annee }}</td>
+      
+      <!-- Colonne pour le bouton "Modifier" -->
       <td>
         <div class="text-center">
+          <!-- routerLink="/upsert" : navigation vers la page d'édition -->
+          <!-- [queryParams]="{id:item.id}" : passe l'ID du livre dans l'URL (?id=5) -->
           <button type="button" class="btn btn-secondary" routerLink="/upsert"
-            [queryParams]="{id:item.id}">Modifier</button>
+            [queryParams]="{id:item.id}">
+            Modifier
+          </button>
         </div>
       </td>
+      
+      <!-- Colonne pour le bouton "Supprimer" -->
       <td>
         <div class="text-center">
-          <button type="button" (click)="deleteLivre(item.id!)" class="btn btn-light">Supprimer</button>
+          <!-- (click)="deleteLivre(item.id!)" : appelle la méthode deleteLivre() avec l'ID -->
+          <button type="button" (click)="deleteLivre(item.id!)" class="btn btn-light">
+            Supprimer
+          </button>
         </div>
       </td>
     </tr>

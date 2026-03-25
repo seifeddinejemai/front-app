@@ -1,28 +1,30 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';    // Pour la navigation entre pages
+import { NgIf } from '@angular/common';      // Pour la directive *ngIf
+
 @Component({
-  selector: 'app-home',
-  imports: [NgIf],
-  templateUrl: './home.html',
-  styleUrl: './home.scss',
+  selector: 'app-home',           // Sélecteur : <app-home>
+  imports: [NgIf],                // Importe NgIf pour utiliser *ngIf
+  templateUrl: './home.html',     // Fichier HTML
+  styleUrl: './home.scss',        // Fichier SCSS
 })
 export class Home {
-  showAbout = false ;
+  showAbout = false ;              // Contrôle l'affichage de la fenêtre modale
 
-  constructor (private router:Router){}
+  constructor (private router:Router){}  // Injecte Router pour la navigation
 
+  // Navigue vers la page de connexion
   goToLogin(){
     this.router.navigate(['/login']) ;
   }
 
-  
-
+  // Ouvre la fenêtre modale
   openAbout(){
-    this.showAbout=true;
+    this.showAbout = true;
   }
 
+  // Ferme la fenêtre modale
   closeAbout(){
-    this.showAbout=false;
+    this.showAbout = false;
   }
 }

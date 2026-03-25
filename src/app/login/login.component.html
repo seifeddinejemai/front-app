@@ -1,15 +1,22 @@
 <div class="login-container">
 
+  <!-- Champ username -->
   <label for="username">Username: </label>
+  <!-- [formControl]="username" : lie ce champ au FormControl 'username' -->
   <input id="username" type="text" [formControl]="username" />
 
+  <!-- Champ mot de passe -->
   <label for="pwd">Mot de passe: </label>
   <input id="pwd" type="password" [formControl]="pwd" />
 
-  <!-- alerte erreur -->
+  <!-- Message d'erreur -->
+  <!-- *ngIf="error?.error" : affiche l'erreur si elle existe -->
   <div *ngIf="error?.error" class="alert alert-danger">
-    {{ error?.error?.error }}
+    {{ error?.error?.error }}    <!-- Affiche le message d'erreur -->
   </div>
+
+  <!-- Bouton de connexion -->
+  <!-- (click)="login()" : appelle la méthode login() au clic -->
   <button type="button" (click)="login()">Login</button>
 
 </div>
