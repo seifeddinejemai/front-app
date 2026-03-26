@@ -1,6 +1,6 @@
 <div id="search-bar-container">
   <app-search-bar (searchButtonClicked)="true" [search]="search_text" (searchChange)="searchChange($event)" />
-<select [(ngModel)]="selectedFilter" (change)="selectfilter()" class="form-select">
+<select [(ngModel)]="selectedFilter" class="form-select">
   <option selected hidden value="">Select Book Filter</option>
 
   @for (item of filter_keys; track $index) {

@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 export class SearchBar {
 
   
-    search = model<string>('');
+    search = model<string|undefined>('');
     searchButtonClicked = output<void>();
   
   searchClick() {
