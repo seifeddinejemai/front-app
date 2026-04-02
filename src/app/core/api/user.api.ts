@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../../shared/models/user';
 import { Ijwt } from '../../shared/models/jwt';
 import { HttpClient } from '@angular/common/http';
