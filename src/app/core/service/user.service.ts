@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { User } from '../../shared/models/user';
 import { Ijwt } from '../../shared/models/jwt';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { UserApi } from '../api/user.api';
 
 /**
  * UserService - Couche métier pour les utilisateurs
@@ -13,15 +12,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UserService {
-
-  /**
-   * Authentifie un utilisateur
-   * @param user - Identifiants de connexion
-   * @returns Observable<Ijwt> - Token JWT
-   */
-  private readonly LOGIN_URL = "http://127.0.0.1:5000/login";
-
-  constructor(private http: HttpClient,private router: Router) { }
+  constructor(private userApi: UserApi) { }
 
   /**
    * Authentifie un utilisateur
@@ -29,15 +20,27 @@ export class UserService {
    * @returns Observable<Ijwt> - Token JWT
    */
   login(user: User): Observable<Ijwt> {
-    return this.http.post<Ijwt>(this.LOGIN_URL, user);
+    // Validation avant envoi
+    if (!user.username || !user.password) {
+      throw new Error('Nom d\'utilisateur et mot de passe requis');
+    }
+    return this.userApi.login(user)
+    // Appel à l'API
+    // return this.userApi.login(user).pipe(
+    //   // Transformation possible du token avant stockage
+    //   map(response => {
+    //     // On pourrait déchiffrer le token ici, vérifier son contenu, etc.
+    //     console.log('Connexion réussie pour :', user.username);
+    //     return response;
+    //   })
+    // );
   }
 
   /**
    * Déconnecte l'utilisateur
    */
   logout(): void {
-    localStorage.removeItem('jwt');
-    this.router.navigate(['/login'])
+    this.userApi.logout()
   }
 
   /**
@@ -45,8 +48,7 @@ export class UserService {
    * @returns boolean
    */
   isLoggedIn(): boolean {
-    const token = localStorage.getItem('jwt');
-    return !!token; // Retourne true si token existe
+     return this.userApi.isLoggedIn()
   }
 
   /**
@@ -54,6 +56,6 @@ export class UserService {
    * @returns string | null
    */
   getToken(): string | null {
-    return localStorage.getItem('jwt');
+    return this.userApi.getToken()
   }
 }

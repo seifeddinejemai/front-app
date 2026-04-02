@@ -1,41 +1,41 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Book } from '../../shared/models/book';
 import { BookFilter } from '../../shared/models/filter';
-import { BookService } from '../services/book.service';
 
 /**
  * BookService - Couche métier pour les livres
  * Responsabilité : Logique métier, transformations, validations
- * Utilise bookService pour les appels HTTP
+ * Utilise BookApi pour les appels HTTP
  */
 @Injectable({
   providedIn: 'root'
 })
 export class BookApi {
-  constructor(private bookService: BookService) { }
+ private readonly BOOK_URL = "http://127.0.0.1:5000/livres";
+
+  constructor(private http: HttpClient) { }
 
   /**
-   * Récupère tous les livres
-   * Peut ajouter des transformations ici si nécessaire
-   * @param filter - Filtres optionnels
-   * @returns Observable<Book[]>
+   * Récupère tous les livres avec filtres optionnels
+   * @param bookFilter - Filtres de recherche (optionnel)
+   * @returns Observable<Book[]> - Liste des livres
    */
-  getAllBooks(filter?: BookFilter): Observable<Book[]> {
-    // Appel à l'API
-    return this.bookService.getAll(filter).pipe(
-      // Transformation possible : formater les données, ajouter des propriétés, etc.
-      map(books => {
-        // Exemple de transformation : s'assurer que chaque livre a un titre en majuscule
-        // return books.map(book => ({
-        //   ...book,
-        //   titre: book.titre.toUpperCase()
-        // }));
-        
-        // Pour l'instant, on retourne les données telles quelles
-        return books;
-      })
-    );
+  getAll(bookFilter?: BookFilter): Observable<Book[]> {
+    let params = new HttpParams();
+    
+    if (bookFilter) {
+      if (bookFilter.page) params = params.append('page', bookFilter.page);
+      if (bookFilter.per_page) params = params.append('per_page', bookFilter.per_page);
+      if (bookFilter.auteur) params = params.append('auteur', bookFilter.auteur);
+      if (bookFilter.annee) params = params.append('annee', bookFilter.annee);
+    }
+
+    return this.http.get<Book[]>(`${this.BOOK_URL}`, {
+      headers: this.getHeaders(),
+      params
+    });
   }
 
   /**
@@ -43,8 +43,10 @@ export class BookApi {
    * @param id - Identifiant du livre
    * @returns Observable<Book>
    */
-  getOneBook(id: number): Observable<Book> {
-    return this.bookService.getOne(id);
+  getOne(id: number): Observable<Book> {
+    return this.http.get<Book>(`${this.BOOK_URL}/${id}`, {
+      headers: this.getHeaders()
+    });
   }
 
   /**
@@ -52,33 +54,21 @@ export class BookApi {
    * @param book - Livre à ajouter
    * @returns Observable<any>
    */
-  addBook(book: Book): Observable<any> {
-    // Validation avant envoi
-    if (!book.titre || !book.auteur) {
-      throw new Error('Le titre et l\'auteur sont obligatoires');
-    }
-    
-    // On peut ajouter des informations supplémentaires
-    const bookToAdd = {
-      ...book,
-      // dateCreation: new Date() // Ajouter une date de création si besoin
-    };
-    
-    return this.bookService.add(bookToAdd);
+  add(book: Book): Observable<any> {
+    return this.http.post(`${this.BOOK_URL}`, book, {
+      headers: this.getHeaders()
+    });
   }
 
   /**
-   * Met à jour un livre
-   * @param book - Livre à modifier
+   * Met à jour un livre existant
+   * @param book - Livre avec les modifications
    * @returns Observable<any>
    */
-  updateBook(book: Book): Observable<any> {
-    // Validation avant mise à jour
-    if (!book.id) {
-      throw new Error('ID requis pour la mise à jour');
-    }
-    
-    return this.bookService.update(book);
+  update(book: Book): Observable<any> {
+    return this.http.put(`${this.BOOK_URL}/${book.id}`, book, {
+      headers: this.getHeaders()
+    });
   }
 
   /**
@@ -86,7 +76,20 @@ export class BookApi {
    * @param id - Identifiant du livre à supprimer
    * @returns Observable<any>
    */
-  deleteBook(id: number): Observable<any> {
-    return this.bookService.delete(id);
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${this.BOOK_URL}/${id}`, {
+      headers: this.getHeaders()
+    });
+  }
+
+  /**
+   * Construit les headers avec le token JWT
+   * @returns HttpHeaders
+   */
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('jwt') || '';
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
   }
 }

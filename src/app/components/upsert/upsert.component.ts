@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Book } from '../../shared/models/book';
-import { BookApi } from '../../core/api/book.api';
+import {  BookService } from '../../core/service/book.service';
 
 @Component({
   selector: 'app-book-upsert',
@@ -22,7 +22,7 @@ export class BookUpsertComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private bookApi: BookApi,  // Utilise le service métier
+    private bookService: BookService,  
     private cd: ChangeDetectorRef
   ) {}
 
@@ -34,7 +34,7 @@ export class BookUpsertComponent implements OnInit {
       const id = +idParam;
 
       // Utilise le service métier
-      this.bookApi.getOneBook(id).subscribe({
+      this.bookService.getOneBook(id).subscribe({
         next: (data) => {
           console.log('Livre récupéré', data);
           this.book = new Book(
@@ -56,13 +56,13 @@ export class BookUpsertComponent implements OnInit {
 
     if (this.isEditMode) {
       // Utilise le service métier
-      this.bookApi.updateBook(this.book).subscribe({
+      this.bookService.updateBook(this.book).subscribe({
         next: () => this.goToBooks(),
         error: (err) => console.error('Erreur mise à jour', err)
       });
     } else {
       // Utilise le service métier
-      this.bookApi.addBook(this.book).subscribe({
+      this.bookService.addBook(this.book).subscribe({
         next: () => this.goToBooks(),
         error: (err) => console.error('Erreur ajout', err)
       });

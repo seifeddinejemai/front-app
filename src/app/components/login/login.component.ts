@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../shared/models/user';
-import { UserApi } from '../../core/api/user.api';
+import {  UserService } from '../../core/service/user.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private userApi: UserApi,  // Utilise le service métier
+    private userService: UserService,  // Utilise le service métier
     private cd: ChangeDetectorRef
   ) { }
 
@@ -29,7 +29,7 @@ export class LoginComponent {
     this.error = null;
 
     // Utilise le service métier
-    this.userApi.login(user).subscribe({
+    this.userService.login(user).subscribe({
       next: (token) => {
         localStorage.setItem('jwt', token.access_token);
         this.router.navigate(['/books']);

@@ -6,8 +6,8 @@ import { Book } from '../../shared/models/book';
 import { BookFilter } from '../../shared/models/filter';
 import { SearchBar } from '../../shared/search-bar/search-bar';
 import { FormsModule } from '@angular/forms';
-import { BookApi } from '../../core/api/book.api';
-import { UserApi } from '../../core/api/user.api';
+import { BookService } from '../../core/service/book.service';
+import { UserService } from '../../core/service/user.service';
 
 @Component({
   selector: 'app-books',
@@ -27,9 +27,8 @@ search: string | undefined= "";
 private subscriptions = new Subscription();
 
 constructor(
-  private bookApi: BookApi,
-  private userApi: UserApi,
-  private cd: ChangeDetectorRef
+  private bookService: BookService,
+  private userService: UserService,
 ) { }
 
 
@@ -61,7 +60,7 @@ ngOnInit(): void {
    * @param filter - Filtre optionnel
   */
  loadBooks(filter?: BookFilter): void {
-   this.books$ = this.bookApi.getAllBooks(filter);
+   this.books$ = this.bookService.getAllBooks(filter);
   }
   
   /**
@@ -69,7 +68,7 @@ ngOnInit(): void {
    * @param id - ID du livre à supprimer
   */
  deleteLivre(id: number): void {
-   this.bookApi.deleteBook(id).subscribe({
+   this.bookService.deleteBook(id).subscribe({
      next: () => {
        // Recharge la liste avec le filtre actuel
        this.loadBooks(this.search ? { auteur: this.search } : {});
@@ -105,6 +104,6 @@ ngOnInit(): void {
    this.searchFilterQuery$.next({});  // Filtre vide
   }
   logout() {
-    this.userApi.logout()
+    this.userService.logout()
   }
 }
